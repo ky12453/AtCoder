@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <map>
 using namespace std;
 
 // std::setによる解法
@@ -58,3 +59,17 @@ int main() {
     cout << counter << endl;
 }
 */
+
+// バケット法(map)による解法
+int main() {
+    int n;
+    cin >> n;
+
+    int d[110];
+    for (int i = 0; i < n; ++i) cin >> d[i];
+
+    map<int, int> m;
+    for (int i = 0; i < n; ++i) m[d[i]];
+
+    cout << m.size() << endl;
+}
