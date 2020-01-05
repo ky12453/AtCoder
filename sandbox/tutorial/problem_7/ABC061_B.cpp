@@ -6,7 +6,8 @@ int main() {
     int n, m;
     cin >> n >> m;
 
-    int a[60], b[60];
+    const int NMMAX = 60;
+    int a[NMMAX], b[NMMAX];
     for (int i = 0; i < m; ++i) cin >> a[i] >> b[i];
 
     // 都市とその都市と繋がる道路の本数を管理
