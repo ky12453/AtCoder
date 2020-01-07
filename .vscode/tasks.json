@@ -8,6 +8,7 @@
             "type": "shell",
             "command": "/usr/bin/g++",
             "args": [
+                "-std=c++14",
                 "-g",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.out",
