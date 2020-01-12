@@ -8,21 +8,25 @@ int main() {
     int t[n];
     for(int i = 0; i < n; ++i) cin >> t[i];
 
+    // 空港に到着する時刻順にソート
     sort(t, t + n);
 
-    int capacity = 0;
-    int wait = 0;
     int ans = 0;
-    for (int i = 0; i < n; ++i) {
-        wait = t[i];
-        capacity++;
+    int i = 0;
+    while (i < n) {
 
-        while (i + 1 < n && capacity < c && wait + k >= t[i + 1]) {
-            capacity++;
-            i++;
+        // 許容時間を定義
+        int wlimit = t[i] + k;
+        int climit = 0;
+
+        // 許容時間、バス定員を満足するあいだループ
+        while (i < n && climit < c && wlimit >= t[i]) {
+            ++climit;
+            ++i;
         }
-        capacity = 0;
-        ans++;
+
+        // バス台数を更新
+        ++ans;
     }
 
     cout << ans << endl;
