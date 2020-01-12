@@ -5,36 +5,25 @@ int main() {
     int n;
     cin >> n;
 
-    int a[100010];
+    int a[n];
     for (int i = 0; i < n; ++i) cin >> a[i];
 
-    int ans = 1;
-    // -1: 単調減少、0: 不定、1: 単調増加
-    int state;
+    int ans = 0;
+    for (int i = 0; i < n; ++i) {
 
-    // 配列A全体をn-1まで探索
-    for (int i = 0; i < n - 1; ++i) {
+        // 同じ値の場合
+        while (i + 1 < n && a[i] == a[i + 1]) ++i;
 
-        // 配列i, 配列i+1が同じ値ならば次のループに遷移
-        if (a[i] == a[i + 1]) continue;
-
-        if (state == 0) {
-            if (a[i] < a[i + 1]) {
-                state = 1;
-            } else {
-                state = -1;
-            }
-        } else if (state == 1) {
-            if (a[i] > a[i + 1]) {
-                state = 0;
-                ans++;
-            }
-        } else {
-            if (a[i] < a[i + 1]) {
-                state = 0;
-                ans++;
-            }
+        // 単調増加の場合
+        if (a[i] < a[i + 1]) {
+            while (i + 1 < n && a[i] < a[i + 1]) ++i;
         }
+        // 単調減少の場合
+        else if (a[i] > a[i + 1]) {
+            while (i + 1 < n && a[i] > a[i + 1]) ++i;
+        }
+
+        ++ans;
     }
 
     cout << ans << endl;
