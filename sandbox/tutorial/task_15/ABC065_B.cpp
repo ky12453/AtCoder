@@ -8,23 +8,19 @@ int main() {
     int a[n + 1];
     for (int i = 1; i <= n; ++i) cin >> a[i];
 
-    // 探索のスタート地点を探索
-    int pt = 0;
-    for (int i = 1; i <= n; ++i) {
-        if (a[i] == 1) pt = i;
-    }
-
     // スタート地点からシミュレーション開始
+    int pt = 1;
     int ans = 0;
     while (true) {
+        // ２番目のボタンが光っていれば終了
+        if (pt == 2) break;
+
+        // ボタンを押して次のボタンを光らせる
         pt = a[pt];
         ans++;
 
-        // ボタン2を発見したら終了
-        if (a[pt] == 2) break;
-
-        // 全てのボタンを探索したことになる数になったら終了
-        if (ans == n -1) {
+        // n回ボタンを押していたら終了
+        if (ans == n) {
             ans = -1;
             break;
         }
