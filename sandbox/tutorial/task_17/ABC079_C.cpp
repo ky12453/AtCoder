@@ -71,9 +71,10 @@ int main() {
     for (int i = 0; i < 2; ++i) {
         for (int j = 0; j < 2; ++j) {
             for (int k = 0; k < 2; ++k) {
+                t = 0;
                 t = cal(si[0], si[1], i);
-                t = cal(t, si[2], i);
-                t = cal(t, si[3], i);
+                t = cal(t, si[2], j);
+                t = cal(t, si[3], k);
                 if (t == 7) {
                     ans[0] = pri(i);
                     ans[1] = pri(j);
