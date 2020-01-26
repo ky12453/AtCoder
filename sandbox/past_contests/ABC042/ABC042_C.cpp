@@ -1,28 +1,33 @@
 #include <iostream>
+#include <map>
 using namespace std;
 
 int main() {
     int n, k;
     cin >> n >> k;
 
-    int d[10] = {0};
+    map<int, bool> d;
     for (int i = 0; i < k; ++i) {
         int t;
         cin >> t;
-        d[t] += 1;
+        d[t] = true;
     }
 
     while (true) {
-        int i = n;
-        bool flg = true;
-        while (i > 0) {
-            if (d[i % 10] == 1) flg = false;
-            i /= 10;
+        int now = n;
+        bool find = true;
+        
+        // 数値の各桁に嫌いな数字があれば次を探査
+        while (now > 0) {
+            if (d[now % 10]) find = false;
+            now /= 10;
         }
-        if (flg == true) {
+
+        // 探査を続けるか確認
+        if (find) {
             break;
         } else {
-            n++;
+            ++n;
         }
     }
 
