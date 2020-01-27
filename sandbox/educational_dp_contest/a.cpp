@@ -2,23 +2,20 @@
 #include <cmath>
 using namespace std;
 
-int chmin(int& a, int b) {
-    if (a > b) {
-        a = b;
-        return 1;
-    }
-    return 0;
-}
+template<class T> inline bool chmax(T&a, T b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> inline bool chmin(T&a, T b) { if (a > b) { a = b; return 1; } return 0; }
+
+const long long INF = 1LL << 60;
 
 int main() {
     int n;
     cin >> n;
 
-    int h[n];
+    long long h[n];
     for (int i = 0; i < n; ++i) cin >> h[i];
 
-    int dp[n];
-    for (int i = 0; i < n; ++i) dp[i] = 1000000000;
+    long long dp[n];
+    for (int i = 0; i < n; ++i) dp[i] = INF;
     dp[0] = 0;
     for (int i = 1; i < n; ++i) {
         chmin(dp[i], dp[i - 1] + abs(h[i] - h[i - 1]));
