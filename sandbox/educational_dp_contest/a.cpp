@@ -7,6 +7,8 @@ template<class T> inline bool chmin(T&a, T b) { if (a > b) { a = b; return 1; } 
 
 const long long INF = 1LL << 60;
 
+// 貰うDPでの実装
+/*
 int main() {
     int n;
     cin >> n;
@@ -23,5 +25,32 @@ int main() {
     }
 
     cout << dp[n - 1] << endl;
+    return 0;
+}
+*/
+
+// 配るDPでの実装
+int main() {
+    int N;
+    cin >> N;
+
+    long long H[N];
+    for (int i = 0; i < N; ++i) cin >> H[i];
+
+    long long dp[N];
+    for (int i = 0; i < N; ++i) dp[i] = INF;
+    dp[0] = 0;
+
+    for (int i = 0; i < N; ++i) {
+        if (i < (N - 1)) {
+            chmin(dp[i + 1], dp[i] + abs(H[i] - H[i + 1]));
+        }
+
+        if (i < (N - 2)) {
+            chmin(dp[i + 2], dp[i] + abs(H[i] - H[i + 2]));
+        }
+    }
+
+    cout << dp[N - 1] << endl;
     return 0;
 }
