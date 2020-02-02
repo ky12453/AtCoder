@@ -29,8 +29,8 @@ mp[1] = 100;
 mp[2] = 101;
 
 for (auto itr = mp.begin(); itr != mp.end(); ++itr) {
-    cout << mp->first << endl;  // 1, 2を表示 
-    cout << mp->second << endl;  // 100, 101を表示
+    cout << itr->first << endl;  // 1, 2を表示 
+    cout << itr->second << endl;  // 100, 101を表示
 }
 ```
 
