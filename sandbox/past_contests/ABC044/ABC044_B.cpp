@@ -6,10 +6,10 @@ int main() {
     string w;
     cin >> w;
 
-    map<string, int> bucket;
+    map<char, int> bucket;
     for (int i = 0; i < w.length(); ++i) {
         if (bucket.find(w[i]) == bucket.end()) {
-            bucket.insert(make_pair(s[i], 1));
+            bucket.insert(make_pair(w[i], 1));
         } else {
             bucket[w[i]] = bucket[w[i]] + 1;
         }
