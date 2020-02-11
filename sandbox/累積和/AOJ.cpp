@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+const long long INF = 1LL << 60;
 
 int N, K;
 vector<int> A(100010);
@@ -15,9 +16,9 @@ int main() {
         s[i + 1] = s[i] + A[i];
     }
 
-    int m = -1000000000;
-    for (int i = 1; i <= N - K; ++i) {
-        m = max(m, s[i + K] - s[i]);
+    long long m = -INF;
+    for (int i = 0; i <= N - K; ++i) {
+        m = max(m, (long long)s[i + K] - s[i]);
     }
 
     cout << m << endl;
