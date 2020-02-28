@@ -16,11 +16,16 @@ int main() {
         if (bucket.count(t) == 0) bucket[t] = 1;
     }
 
-    auto itr = bucket.begin();
-    int val1 = itr->first;
-    itr++;
-    int val2 = itr->first;
+    int ans = MOD;
+    for (auto i = bucket.begin(); i != bucket.end(); ++i) {
+        for (auto j = bucket.begin(); j != bucket.end(); ++j) {
 
-    cout << val1 * val2 % MOD << endl;
+            if (i != j) {
+                ans = min(ans, i->first * j->first % MOD);
+            }
+        }
+    }
+
+    cout << ans << endl;
     return 0;
 }
