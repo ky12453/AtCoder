@@ -17,23 +17,26 @@ int main() {
         cin >> S[i] >> C[i];
     }
 
-    int ans = -1;
-    for (int i = 701; i < 1000; ++i) {
-        string str = to_string(i);
+    int bucket[4];
+    
 
-        if (str.length() >= N) {
-            bool flg = true;
-            for (int j = 0; j < M; ++j) {
-                if (str[S[j] - 1] != C[j]) flg = false;
-            }
+    // int ans = -1;
+    // for (int i = 0; i < 1000; ++i) {
+    //     string str = to_string(i);
 
-            if (flg) {
-                ans = i;
-                break;
-            }
-        }
-    }
+    //     if (str.length() >= N) {
+    //         bool flg = true;
+    //         for (int j = 0; j < M; ++j) {
+    //             if (str[S[j] - 1] != C[j]) flg = false;
+    //         }
 
-    cout << ans << endl;
+    //         if (flg) {
+    //             ans = i;
+    //             break;
+    //         }
+    //     }
+    // }
+
+    // cout << ans << endl;
     return 0;
 }
