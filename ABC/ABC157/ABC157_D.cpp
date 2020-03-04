@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <set>
 #include <stack>
 #include <queue>
 #include <algorithm>
@@ -9,12 +10,12 @@ using namespace std;
 
 struct UnionFind {
     vector<int> par;
-    vector<int> c;
+    vector<int> siz;
 
-    UnionFind(int N) : par(N) {
+    UnionFind(int N) : par(N), siz(N) {
         for (int i = 0; i < N; ++i) {
             par[i] = i;
-            c[i] = 1;
+            siz[i] = 1;
         }
     }
 
@@ -28,11 +29,11 @@ struct UnionFind {
         int ry = root(y);
         if (rx == ry) return;
         par[rx] = ry;
-        c[rx] += c[ry];
+        siz[ry] = siz[ry] + siz[rx];
     }
 
-    int count(int x) {
-        return c[root(x) - 1];
+    int size(int x) {
+        return siz[root(x)];
     }
 
     bool same(int x, int y) {
@@ -42,44 +43,39 @@ struct UnionFind {
     }
 };
 
-int A[100010], B[100010], C[100010], D[100010];
-int f[100010], b[100010];
-
 int main() {
     int N, M, K;
     cin >> N >> M >> K;
 
-    for (int i = 0; i < M; ++i) cin >> A[i] >> B[i];
-    for (int i = 0; i < K; ++i) cin >> C[i] >> D[i];
-
-    // 連結成分
     UnionFind uf(N);
-    for (int i = 0; i < M; ++i) uf.unite(A[i], B[i]);
+    vector<set<int>> dame(N);
+    for (int i = 0; i < M; ++i) {
+        int a, b;
+        cin >> a >> b;
 
-    for (int i = 0; i < N; ++i) {
-
-        // 友達
-        int cnt = 0;
-        for (int j = 0; j < M; ++j) {
-            if (A[j] == i) ++cnt;
-            if (B[j] == i) ++cnt;
-        }
-        f[i] = cnt;
-
-        // ブロック
-        cnt = 0;
-        for (int j = 0; j < K; ++j) {
-            if (C[j] == i) ++cnt;
-            if (D[j] == i) ++cnt;
-        }
-        b[i] = cnt;
+        // 0始まりの添字に合わせるために1減算する
+        --a; --b;
+        dame[a].insert(b);
+        dame[b].insert(a);
+        uf.unite(a, b);
     }
 
-    // 友達候補 = 連結成分 - 1 - 友達 - ブロック
-    for (int i = 0; i < N; ++i) {
-        int cf = uf.count(i) - 1 - f[i] - b[i];
-        cout << cf << endl;
+    for (int i = 0; i < K; ++i) {
+        int c, d;
+        cin >> c >> d;
+
+        --c, --d;
+        if (!uf.same(c, d)) continue;
+        dame[c].insert(d);
+        dame[d].insert(c);
     }
+
+    for (int i = 0; i < N; ++i) {
+        int ans = uf.size(i) - 1;
+        ans -= dame[i].size();
+        cout << ans << " ";
+    }
+    cout << endl;
 
     return 0;
 }
