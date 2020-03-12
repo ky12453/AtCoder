@@ -3,7 +3,6 @@ Updated: 2020年3月12日
 [コンテストサイト](https://atcoder.jp/contests/abc120)  
 [提出コード](https://github.com/ky12453/AtCoder/tree/master/ABC/ABC120)
 
----
 
 
 ## A - Favorite Sound
@@ -12,7 +11,6 @@ Updated: 2020年3月12日
 満足する回数だけ音を聴ける場合はその回数を出力する。  
 できない場合は、持ち金で聴ける回数を出力する。
 
----
 
 
 ## B - K-th Common Divisor
@@ -24,7 +22,6 @@ Updated: 2020年3月12日
 K番目に大きいという表現に騙されてWAを出してしまった。  
 具体例をイメージして考える癖をつける。
 
----
 
 
 ## C - Unification
@@ -39,7 +36,6 @@ K番目に大きいという表現に騙されてWAを出してしまった。
 シミュレートによる解法は、問題文を読むだけでなんとなくアルゴリズムがイメージできるため、  
 とっつきやすいが、罠があると感じた。
 
----
 
 
 ## D - Decayed Bridges
