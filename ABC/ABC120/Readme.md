@@ -1,4 +1,4 @@
-## AtCoder Beginer Contest 120
+# AtCoder Beginer Contest 120
 Updated: 2020年3月12日  
 [コンテストサイト](https://atcoder.jp/contests/abc120)  
 [提出コード](https://github.com/ky12453/AtCoder/tree/master/ABC/ABC120)
@@ -6,7 +6,7 @@ Updated: 2020年3月12日
 ---
 
 
-### A - Favorite Sound
+## A - Favorite Sound
 
 ##### (1) 方針
 満足する回数だけ音を聴ける場合はその回数を出力する。  
@@ -15,7 +15,7 @@ Updated: 2020年3月12日
 ---
 
 
-### B - K-th Common Divisor
+## B - K-th Common Divisor
 
 ##### (1) 方針
 1からmin(A, B)の範囲で条件を満たすものを全探索する。
@@ -27,7 +27,7 @@ K番目に大きいという表現に騙されてWAを出してしまった。
 ---
 
 
-### C - Unification
+## C - Unification
 
 ##### (1) 方針
 0か1どちらかがなくなるまでキューブを取り除く操作ができる。  
@@ -42,7 +42,7 @@ K番目に大きいという表現に騙されてWAを出してしまった。
 ---
 
 
-### D - Decayed Bridges
+## D - Decayed Bridges
 グループを構成してnC2から連結しないノードの組み合わせを求める。
 
 * グループ
