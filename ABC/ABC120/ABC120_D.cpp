@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <algorithm>
 using namespace std;
 using ll = long long;
 
@@ -56,7 +57,7 @@ int main() {
 
     int t = 0;
     ll ans[M];
-    UnionFind uf(M);
+    UnionFind uf(N);
     map<int, int> mp;
     for (int i = 0; i < M ; ++i) {
 
@@ -81,8 +82,14 @@ int main() {
         int sizab = uf.size(aa);
 
         if (!flg) {
-            if (mp.count(siza) != 0) mp[siza] -= 1;
-            if (mp.count(sizb) != 0) mp[sizb] -= 1;
+            if (mp.count(siza) != 0) {
+                mp[siza] -= 1;
+                if (mp[siza] == 0) mp.erase(siza);
+            }
+            if (mp.count(sizb) != 0) {
+                mp[sizb] -= 1;
+                if (mp[sizb] == 0) mp.erase(sizb);
+            }
             if (mp.count(sizab) != 0) {
                 mp[sizab] += 1;
             }
