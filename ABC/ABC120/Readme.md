@@ -1,6 +1,6 @@
 ## AtCoder Beginer Contest 120
-Updated: 2020年3月12日
-[コンテストサイト](https://atcoder.jp/contests/abc120)
+Updated: 2020年3月12日  
+[コンテストサイト](https://atcoder.jp/contests/abc120)  
 [提出コード](https://github.com/ky12453/AtCoder/tree/master/ABC/ABC120)
 
 ---
