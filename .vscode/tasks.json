@@ -6,7 +6,7 @@
         {
             "label": "g++ build",
             "type": "shell",
-            "command": "/usr/bin/g++",
+            "command": "/usr/local/bin/g++",
             "args": [
                 "-std=c++14",
                 "-g",
