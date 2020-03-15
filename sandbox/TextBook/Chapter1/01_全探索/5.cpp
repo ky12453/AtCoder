@@ -11,26 +11,15 @@ int dy[] = {-1, 0 , 1, -1, 1, -1, 0, 1};
 bool dfs(int x, int y) {
     stack<int> sx, sy;
 
+    // 現在の座標を探索済とする
+    AREA[x][y] = '.';
+
     // 8近傍の水溜りを探索
     for (int i = 0; i < 8; ++i) {
         int tx = x + dx[i];
         int ty = y + dy[i];
-        if (AREA[tx][ty] == 'W') {
-            sx.push(tx);
-            sy.push(ty);
-        }
+        if (AREA[tx][ty] == 'W') dfs(tx, ty);
     }
-
-    // 現在の座標を探索済とする
-    AREA[x][y] = '.';
-
-    // 探索できる座標があれば、さらに探索する
-    while (sx.size() != 0) {
-        dfs(sx.top(), sy.top());
-        sx.pop();
-        sy.pop();
-    }
-
     return true;
 }
 
