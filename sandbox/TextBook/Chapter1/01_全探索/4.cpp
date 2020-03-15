@@ -7,11 +7,15 @@ int ans = 0;
 int N, K, A[25];
 
 bool dfs(int s, int c) {
-    if (c == N) {
-        if (s == K) return true;
-        return false;
-    }   
-    return dfs(s + A[c], c + 1) || dfs(s, c + 1);
+    if (c == N) return s == K;
+
+    // A[i]を使う場合
+    if (dfs(s + A[c], c + 1)) return true;
+
+    // A[i]を使わない場合
+    if (dfs(s, c + 1)) return true;
+
+    return false;
 }
 
 int main() {
@@ -20,8 +24,9 @@ int main() {
 
     if (dfs(0, 0)) {
         cout << "Yes" << endl;
-        return 0;
     }
-    cout << "No" << endl;
+    else {
+        cout << "No" << endl;
+    }
     return 0;
 }
