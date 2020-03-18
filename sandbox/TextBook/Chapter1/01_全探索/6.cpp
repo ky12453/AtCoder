@@ -3,70 +3,58 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int N, M;
-char maze[110][110];
-int dx[] = {-1, 0, 0, 1};
-int dy[] = {0, -1 , 1, 0};
-int cnt = 0;
+const int INF = 1<<29;
+int H, W;
+int SX, SY, GX, GY;
+char maze[55][55];
+int cost[55][55];
+int dx[] = {-1, 0, 1, 0};
+int dy[] = {0, 1, 0, -1};
 
-int bfs(int x, int y, int c) {
+int bfs(int x, int y) {
     queue<int> qx;
     queue<int> qy;
+    qx.push(x);
+    qy.push(y);
+    cost[x][y] = 0;
 
-    // ゴールにたどり着いたら探索終了
-    if (maze[x][y] == 'G') {
-        cnt = c;
-        return true;
-    }
-
-    // 進める座標を4近傍から探索する
-    for (int i = 0; i < 4; ++i) {
-        int tx = x + dx[i];
-        int ty = y + dy[i];
-        if (maze[tx][ty] == '.' || maze[tx][ty] == 'G') {
-            qx.push(tx);
-            qy.push(ty);
-        }
-    }
-
-    // 探索済みの座標を記録する
-    maze[x][y] = '#';
-
-    while (qx.size() != 0) {
-        if (bfs(qx.front(), qy.front(), c + 1)) return true;
+    while(!qx.empty()) {
+        x = qx.front();
+        y = qy.front();
         qx.pop();
         qy.pop();
-    }
-    return false;
-}
 
-int main() {
-    cin >> N >> M;
-
-    for (int x = 0; x < 110; ++x) {
-        for (int y = 0; y < 110; ++y) {
-            maze[x][y] = '#';
-        }
-    }
-
-    for (int x = 1; x <= N; ++x) {
-        for (int y = 1; y <= M; ++y) {
-            cin >> maze[x][y];
-        }
-    }
-
-    // 開始位置を探索
-    int sx, sy;
-    for (int x = 1; x <= N; ++x) {
-        for (int y = 1; y <= M; ++y) {
-            if (maze[x][y] == 'S') {
-                sx = x;
-                sy = y;
+        for (int i = 0; i < 4; ++i) {
+            int tx = x + dx[i];
+            int ty = y + dy[i];
+            if (tx < 0 || ty < 0 || tx > H || ty > W) continue;
+            if (maze[tx][ty] == '.' && cost[tx][ty] == INF) {
+                qx.push(tx);
+                qy.push(ty);
+                cost[tx][ty] = cost[x][y] + 1;
             }
         }
     }
 
-    bfs(sx, sy, 0);
-    cout << cnt << endl;
+    return cost[GX][GY];
+}
+
+int main() {
+    cin >> H >> W;
+    cin >> SX >> SY;
+    cin >> GX >> GY;
+    SX--;
+    SY--;
+    GX--;
+    GY--;
+
+    for (int x = 0; x < H; ++x) {
+        for (int y = 0; y < W; ++y) {
+            cin >> maze[x][y];
+            cost[x][y] = INF;
+        }
+    }
+
+    cout << bfs(SX, SY) << endl;
     return 0;
 }
