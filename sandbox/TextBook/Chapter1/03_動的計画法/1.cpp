@@ -1,4 +1,4 @@
-//
+// ナップザック問題
 
 #include <bits/stdc++.h>
 using namespace std;
