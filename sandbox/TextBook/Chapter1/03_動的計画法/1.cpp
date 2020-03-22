@@ -1,38 +1,36 @@
-// ナップザック問題
+// 蟻本P52
+// ナップサック問題を愚直な方法で解答
 
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
 
-ll dp[110][100010];
+const int N_MAX = 110;
+int N, W;
+int weight[N_MAX], value[N_MAX];
+
+int solve(int i, int cw, int cv) {
+    if (i == N) {
+        return cv;
+    }
+
+    // i番目の品物を選ばない場合
+    int mv = 0;
+    int t = solve(i + 1, cw, cv);
+    mv = max(mv, t);
+
+    // i番目の品物を選ぶ場合
+    if (cw + weight[i] <= W) {
+        t = solve(i + 1, cw + weight[i], cv + value[i]);
+        mv = max(mv, t);
+    }
+
+    return mv;
+}
 
 int main() {
-    int N, W;
     cin >> N >> W;
-
-    ll weight[N], value[N];
     for (int i = 0; i < N; ++i) cin >> weight[i] >> value[i];
 
-    for (int i = 0; i < 110; ++i) {
-        for (int j = 0; j < 100010; ++j) {
-            dp[i][j] = 0;
-        }
-    }
-
-    for (int i = 1; i <= N; ++i) {
-        for (int j = 0; j <= W; ++j) {
-            dp[i][j] = max(dp[i][j], dp[i - 1][j]);
-            if (j >= weight[i - 1]) {
-                dp[i][j] = max(dp[i][j], dp[i - 1][j - weight[i - 1]] + value[i - 1]);
-            }
-        }
-    }
-
-    ll ans = 0;
-    for (int i = 0; i <= 100010; ++i) {
-        ans = max(ans, dp[N][i]);
-    }
-
-    cout << ans << endl;
+    cout << solve(0, 0, 0) << endl;
     return 0;
 }
