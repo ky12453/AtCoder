@@ -1,36 +1,46 @@
-// 最長共通部分列問題
+// 蟻本P53
+// ナップサック問題をメモ化再帰により解答
 
 #include <bits/stdc++.h>
 using namespace std;
 
-const int NMAX = 1010;
-int dp[NMAX][NMAX];
+const int N_MAX = 110;
+const int W_MAX = 10010;
+int N, W;
+int weight[N_MAX], value[N_MAX], dp[N_MAX][W_MAX];
 
-int main() {
-    int N, M;
-    cin >> N >> M;
-
-    string s, t;
-    cin >> s;
-    cin >> t;
-
-    for (int i = 0; i < NMAX; i++) {
-        for (int j = 0; j < NMAX; j ++) {
-            dp[i][j] = 0;
-        }
+int rec(int i, int j) {
+    // 探索済の場合は、メモ用配列の値を返却
+    if (dp[i][j] >= 0) {
+        return dp[i][j];
     }
 
-    for (int i = 1; i <= N; ++i) {
-        for (int j = 1; j <= M; ++j) {
-            dp[i][j] = max(dp[i][j], dp[i - 1][j]);
-            dp[i][j] = max(dp[i][j], dp[i][j - 1]);
-            if (s[i - 1] == t[j - 1]) {
-                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - 1] + 1);
-            }
-        }
+    // 品物が残っていない場合
+    if (i == N) {
+        return 0;
     }
 
-    cout << dp[N][M] << endl;
-    return 0;
+    int res;
+    if (j < weight[i]) {
+        res = rec(i + 1, j);
+    } else {
+        res = max(rec(i + 1, j), rec(i + 1, j - weight[i]) + value[i]);
+    }
+
+    return dp[i][j] = res;
 }
 
+int main() {
+    cin >> N >> W;
+    for (int i = 0; i < N; ++i) cin >> weight[i] >> value[i];
+
+    // メモ用配列を初期化
+    for (int i = 0; i < N_MAX; ++i) {
+        for (int j = 0; j < W_MAX; ++j) {
+            dp[i][j] = -1;
+        }
+    }
+
+    cout << rec(0, W) << endl;
+    return 0;
+}
