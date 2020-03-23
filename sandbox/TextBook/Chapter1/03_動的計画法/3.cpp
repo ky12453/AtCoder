@@ -1,34 +1,31 @@
-// 個数制限なしナップサック問題
+// 蟻本P55
+// ナップサック問題をメモ化再帰により解答
 
 #include <bits/stdc++.h>
 using namespace std;
 
-const int NMAX = 110;
-const int MMAX = 10010;
-int dp[NMAX][MMAX];
+const int N_MAX = 110;
+const int W_MAX = 10010;
+int N, W;
+int weight[N_MAX], value[N_MAX], dp[N_MAX][W_MAX];
 
 int main() {
-    int N, W;
     cin >> N >> W;
-
-    int weight[N], value[N];
     for (int i = 0; i < N; ++i) cin >> weight[i] >> value[i];
 
-    for (int i = 0; i < NMAX; ++i) {
-        for (int j = 0; j < MMAX; ++j) {
-            dp[i][j] = 0;
-        }
-    }
+    // メモ用配列を初期化
+    memset(dp, 0, sizeof(dp));
 
-    for (int i = 1; i <= N; ++i) {
+    for (int i = N - 1; i >= 0; --i) {
         for (int j = 0; j <= W; ++j) {
-            // dp[i][j] = max(dp[i][j], dp[i - 1][j]);
-            for (int k = 0; k * weight[i - 1] <= j; ++k) {
-                dp[i][j] = max(dp[i][j], dp[i - 1][j - k * weight[i - 1]] + k * value[i - 1]);
+            if (j < weight[i]) {
+                dp[i][j] = dp[i + 1][j];
+            } else {
+                dp[i][j] = max(dp[i + 1][j], dp[i + 1][j - weight[i]] + value[i]);
             }
         }
     }
 
-    cout << dp[N][W] << endl;
+    cout << dp[0][W] << endl;
     return 0;
 }
