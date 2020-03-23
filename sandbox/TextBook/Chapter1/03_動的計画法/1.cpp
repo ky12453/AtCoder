@@ -8,29 +8,26 @@ const int N_MAX = 110;
 int N, W;
 int weight[N_MAX], value[N_MAX];
 
-int solve(int i, int cw, int cv) {
+int rec(int i, int j) {
+    // 品物が残っていない場合
     if (i == N) {
-        return cv;
+        return 0;
     }
 
-    // i番目の品物を選ばない場合
-    int mv = 0;
-    int t = solve(i + 1, cw, cv);
-    mv = max(mv, t);
-
-    // i番目の品物を選ぶ場合
-    if (cw + weight[i] <= W) {
-        t = solve(i + 1, cw + weight[i], cv + value[i]);
-        mv = max(mv, t);
+    int res;
+    if (j < weight[i]) {
+        res = rec(i + 1, j);
+    } else {
+        res = max(rec(i + 1, j), rec(i + 1, j - weight[i]) + value[i]);
     }
 
-    return mv;
+    return res;
 }
 
 int main() {
     cin >> N >> W;
     for (int i = 0; i < N; ++i) cin >> weight[i] >> value[i];
 
-    cout << solve(0, 0, 0) << endl;
+    cout << rec(0, W) << endl;
     return 0;
 }
