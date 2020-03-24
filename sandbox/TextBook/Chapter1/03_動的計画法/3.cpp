@@ -1,5 +1,5 @@
 // 蟻本P55
-// ナップサック問題をメモ化再帰により解答
+// ナップサック問題をDPにより解答
 
 #include <bits/stdc++.h>
 using namespace std;
