@@ -6,24 +6,16 @@ using namespace std;
 
 const int MAX_V = 1010;
 vector<vector<int>> G(MAX_V);
-int check[MAX_V]; // 0: 未探索、1: 探索済
-int color[MAX_V]; // 0: 黒、1: 白
+int color[MAX_V];
 
-void dfs(int v, int c) {
-
-    if (c == 0) {
-        c = 1;
-    } else {
-        c = 0;
+bool dfs(int v, int c) {
+    color[v] = c;
+    for (int i = 0; i < G[v].size(); ++i) {
+        if (color[G[v][i]] == c) return false;
+        if (color[G[v][i]] == 0 && !dfs(G[v][i], -c)) return false;
     }
 
-    for (auto itr = G[v].begin(); itr != G[v].end(); ++itr) {
-        if (check[*itr] == 0) {
-            check[*itr] = 1;
-            color[*itr] = c;
-            dfs(*itr, c);
-        }
-    }
+    return true;
 }
 
 int main() {
@@ -39,19 +31,15 @@ int main() {
         G[te].push_back(tv);
     }
 
-    check[0] = 1;
-    color[0] = 0;
-    dfs(0, 0);
-
-    string res = "Yes";
     for (int i = 0; i < V; ++i) {
-        for (auto itr = G[i].begin(); itr != G[i].end(); ++itr) {
-            if (color[i] == color[*itr]) {
-                res = "No";
+        if (color[i] == 0) {
+            if (!dfs(i, 1)) {
+                cout << "No" << endl;
+                return 0;
             }
         }
     }
 
-    cout << res << endl;
+    cout << "Yes" << endl;
     return 0;
 }
