@@ -1,51 +1,50 @@
 // 蟻本P95
-// ベルマンフォード方法を実装
+// ベルマンフォード法を実装
 
 #include <bits/stdc++.h>
 using namespace std;
-
-const int MAX_V = 10;
-const int MAX_E = 10;
-const int INF = 1 << 29;
-
-int d[MAX_V];
-int V, E;
 
 struct edge {
     int from;
     int to;
     int cost;
 };
-vector<edge> G;
 
-void shortest_path(int s) {
-    for (int i = 0; i < V; ++i) d[i] = INF;
-    d[s] = 0;
+const int INF = 1 << 29;
+const int MAX_V = 20;
+const int MAX_E = 20;
 
+int main() {
+    int V, E; cin >> V >> E;
+    int S, G; cin >> S >> G;
+    
+    // グラフ構造を格納
+    vector<edge> edges;
+    for (int i = 0; i < E; ++i) {
+        edge e; cin >> e.from >> e.to >> e.cost;
+        edges.push_back(e);
+    }
+
+    // 距離配列の初期化
+    vector<int> d(V);
+    fill(d.begin(), d.end(), INF);
+    d[S] = 0;
+
+    // 最短経路を探索
     while (true) {
         bool update = false;
         for (int i = 0; i < E; ++i) {
-            edge e = G[i];
-            if (d[e.from] != INF && d[e.to] > d[e.from] + e.cost) {
+            edge e = edges[i];
+            // 最短経路で更新
+            if (e.from != INF && d[e.to] > d[e.from] + e.cost) {
                 d[e.to] = d[e.from] + e.cost;
                 update = true;
             }
         }
-
+        
         if (!update) break;
     }
-}
 
-int main() {
-    cin >> V >> E;
-
-    for (int i = 0; i < E; ++i) {
-        struct edge t;
-        cin >> t.from >> t.to >> t.cost;
-        G.push_back(t);
-    }
-
-    shortest_path(0);
-    cout << d[5] << endl;
+    cout << d[G] << endl;
     return 0;
 }
