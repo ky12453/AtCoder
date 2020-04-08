@@ -12,13 +12,12 @@ int main() {
     int S, G; cin >> S >> G;
 
     vector<vector<int>> graph(MAX_V, vector<int>(MAX_V, INF));
-    for (int i = 0; i < V; ++i) {
+    for (int i = 0; i < MAX_V; ++i) {
         graph[i][i] = 0;
     }
 
     for (int i = 0; i < E; ++i) {
         int f, t, c; cin >> f >> t >> c;
-        f--; t--;
         graph[f][t] = min(graph[f][t], c);
         graph[t][f] = min(graph[t][f], c);       
     }
@@ -26,7 +25,7 @@ int main() {
     for (int k = 0; k < V; ++k) {
         for (int i = 0; i < V; ++i) {
             for (int j = 0; j < V; ++j) {
-                graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][i]);
+                graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j]);
             }
         }
     }
