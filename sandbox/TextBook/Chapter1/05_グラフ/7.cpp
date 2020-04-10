@@ -3,11 +3,6 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-struct edge {
-    int from;
-    int to;
-    int cost;
-};
 
 const int INF = 1 << 29;
 const int MAX_V = 20;
@@ -42,7 +37,7 @@ int main() {
     while (true) {
         int t = -1;
         for (int i = 0; i < V; ++i) {
-            if (!used[i] && (t = -1 || mincost[i] < mincost[t])) t = i;
+            if (!used[i] && (t == -1 || mincost[i] < mincost[t])) t = i;
         }
 
         if (t == -1) break;
