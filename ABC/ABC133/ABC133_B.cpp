@@ -1,35 +1,39 @@
-#include <iostream>
-#include <cmath>
+#include <bits/stdc++.h>
 using namespace std;
 
-bool is_integer( double x ){
-  return floor(x)==x;
+bool isIntDistance(vector<int> v1, vector<int> v2) {
+    double d = 0;
+    for (int i = 0; i < v1.size(); ++i) {
+        d += (v1[i] - v2[i]) * (v1[i] - v2[i]);
+    }
+
+    d = sqrt(d);
+    if ((int)d == d) return true;
+    return false;
 }
 
 int main() {
-    int N, D;
-    cin >> N >> D;
+    int n, d; cin >> n >> d;
 
-    int X[12][12] = {0};
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < D; ++j) {
-            cin >> X[i][j];
+    vector<vector<int>> points(n);
+    for (int i = 0; i < n; ++i) {
+
+        vector<int> point(d);
+        for (int j = 0; j < d; ++j) {
+            cin >> point[j];
+        }
+        points[i] = point;
+    }
+
+    int res = 0;
+    for (int i = 0; i < n; ++i) {
+        vector<int> v1 = points[i];
+        for (int j = i + 1; j < n; ++j) {
+            vector<int> v2 = points[j];
+            if (isIntDistance(v1, v2)) res++;
         }
     }
 
-    int ans = 0;
-    for (int i = 0; i < N - 1; ++i) {
-        for (int j = i + 1; j < N; ++j) {
-
-            double dist = 0;
-            for (int k = 0; k < D; ++k) {
-                dist += (X[i][k] - X[j][k]) * (X[i][k] - X[j][k]);
-            }
-
-            if (is_integer(sqrt(dist))) ++ans;
-        }
-    }
-
-    cout << ans << endl;
+    cout << res << endl;
     return 0;
 }
