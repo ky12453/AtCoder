@@ -1,31 +1,21 @@
-#include <iostream>
-#include <map>
+#include <bits/stdc++.h>
 using namespace std;
-
-const int MOD = 2019;
+using ll = long long;
 
 int main() {
-    int L, R;
-    cin >> L >> R;
+    ll l, r; cin >> l >> r;
 
-    map<int, int> bucket;
-    for (int i = 0; i <= MOD; ++i) {
-        if (L + i > R) break;
-
-        int t = (L + i) % MOD;
-        if (bucket.count(t) == 0) bucket[t] = 1;
-    }
-
-    int ans = MOD;
-    for (auto i = bucket.begin(); i != bucket.end(); ++i) {
-        for (auto j = bucket.begin(); j != bucket.end(); ++j) {
-
-            if (i != j) {
-                ans = min(ans, i->first * j->first % MOD);
+    if (l / 2019 != r / 2019) {
+        cout << 0 << endl;
+        return 0;
+    } else {
+        ll res = 2020;
+        for (ll i = l; i <= r; ++i) {
+            for (ll j = i + 1; j <= r; ++j) {
+                res = min(res, i * j % 2019);
             }
         }
+        cout << res << endl;
     }
-
-    cout << ans << endl;
     return 0;
 }
