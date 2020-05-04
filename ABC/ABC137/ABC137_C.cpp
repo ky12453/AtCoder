@@ -2,33 +2,21 @@
 using namespace std;
 using ll = long long;
 
-ll cmb(ll n) {
-    return (n * (n - 1)) / 2;
-}
-
 int main() {
     int n; cin >> n;
-    vector<string> s(n); for (int i = 0; i < n; ++i) cin >> s[i];
 
-    map<string, ll> mp;
+    map<string, ll> ma;
     for (int i = 0; i < n; ++i) {
-        string str = s[i];
-        sort(str.begin(), str.end());
-        
-        if (mp.count(str) == 0) {
-            mp[str] = 1;
+        string s; cin >> s;
+        sort(s.begin(), s.end());
+        if (ma.count(s) == 0) {
+            ma[s] = 1;
         } else {
-            mp[str] += 1;
+            ma[s] += 1;
         }
     }
 
     ll res = 0;
-    for (auto itr = mp.begin(); itr != mp.end(); ++itr) {
-        if (itr->second >= 2) {
-            res += cmb(itr->second);
-        }
-    }
-
+    for(auto it : ma) res += it.second * (it.second - 1) / 2;
     cout << res << endl;
-    return 0;
 }
