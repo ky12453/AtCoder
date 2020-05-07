@@ -1,0 +1,65 @@
+\documentclass{jarticle}
+\title{AtCoder Beginner Contest 138}
+\date{2020年5月5日}
+
+\usepackage{listings}
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
+\begin{document}
+
+\maketitle
+
+\section*{A: Red or Not}
+\subsubsection*{考察}
+問題文の通り条件に合った出力をする。
+
+
+\section*{B: Resistors in Parallel}
+\subsubsection*{考察}
+問題文の通りに逆数を出力する。
+
+\subsubsection*{考察}
+小数部分の桁数を指定したい場合にはstd::fixedと、std::setprecisionを使用する。fixedを指定しない場合、setprecisionで指定した長さが整数部も含むので注意する。
+
+\vspace{\baselineskip}
+\begin{lstlisting}
+#include <iomanip>
+cout << std::fixed << std::setprecision(15) << y << endl;
+\end{lstlisting}
+
+
+\section*{C: Alchemist}
+\subsubsection*{考察}
+全探索的アプローチで求めようとすると ${}_{50}C_2 \times {}_{49}C_2 \times {}_{48}C_2 \cdots$ の組み合わせを探索する必要があり間に合わない。
+
+そこで、求める価値はどのような要素から構成されるか考える。今回はヒントとなる数式が与えられているため、数式で考えることにする。求める価値を $V$ として、 $x, y, z$ の価値を持つ3つの具材のケースで考えてみる。$x, y$ を合成して、その後 $z$ を合成する順とすると、 $V$ は次のように求められる。
+\begin{displaymath}
+V = \frac{\frac{x + y}{2} + z}{2} = \frac{x + y + 2z}{4}
+\end{displaymath}
+$z$ に着目すると2倍されているため、 $N$ 個の具材の中で最も大きいものを最後に合成すると良いとあたりがつく。そこで、具材をソートし、小さいものから順に合成をしていく。
+
+
+\section*{D: Ki}
+\subsubsection*{考察}
+シミュレーションにより解答しようとすると、最悪ケースで $O(NQ)$ になり間に合わない。各頂点のカウンタの更新タイミングに着目すると、最後に一気に更新をかけることで良いことに気づく。
+
+解答を見て考えたことであるが、更新タイミングに気づくきっかけとしては木が直線的であるような簡単なケースで考えてみるのもあり。
+
+
+\end{document}
