@@ -1,23 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ALL(a) (a).begin(),(a).end()
+
 #define REP(w, n) for(int w=0;w<int(n);++w)
 
 int main() {
     int n; cin >> n;
-    int a[n]; REP(i, n) {
-        int t; cin >> t;
-        a[i] = t - 1;
-    }
+    int a[n]; REP(i, n) cin >> a[i];
     int b[n]; REP(i, n) cin >> b[i];
-    int c[n]; REP(i, n - 1) cin >> c[i];
+    int c[n - 1]; REP(i, n - 1) cin >> c[i];
 
     int res = 0;
-    int pre = -100;
+    int prv = -30;
     REP(i, n) {
-        res += b[a[i]];
-        if (pre + 1 == a[i]) res += c[pre];
-        pre = a[i];
+        int t = a[i] - 1;
+        res += b[t];
+        if (prv + 1 == t) res += c[t - 1];
+        prv = t;
     }
 
     cout << res << endl;
